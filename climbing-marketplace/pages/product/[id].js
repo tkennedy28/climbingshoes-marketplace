@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { useCart } from '../contexts/CartContext';
+import { useCart } from '../../contexts/CartContext';
 
 export default function ProductPage() {
   const router = useRouter();
