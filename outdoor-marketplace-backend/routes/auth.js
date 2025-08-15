@@ -51,7 +51,7 @@ router.post('/register', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    // Return success (don't send password)
+    // Return success (don&apos;t send password)
     res.status(201).json({
       success: true,
       message: 'User created successfully',

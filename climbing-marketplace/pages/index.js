@@ -293,7 +293,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-lg font-semibold mb-4 text-amber-200">ClimbingShoes.com</h3>
-              <p className="text-stone-300">The world's largest marketplace for climbing shoes.</p>
+              <p className="text-stone-300">The world&apos;s largest marketplace for climbing shoes.</p>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4 text-amber-200">Shop</h4>

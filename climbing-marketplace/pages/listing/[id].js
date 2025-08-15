@@ -415,7 +415,7 @@ These are versatile shoes that work well for sport climbing, trad, and even some
               </div>
 
               <button
-                onClick={() => alert(`Viewing ${listing.seller.name}'s other listings`)}
+                onClick={() => alert(`Viewing ${listing.seller.name}&apos;s other listings`)}
                 className="w-full mt-4 bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300"
               >
                 View Other Listings

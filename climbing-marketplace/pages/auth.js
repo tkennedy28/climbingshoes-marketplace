@@ -99,7 +99,7 @@ export default function AuthPage() {
             {isLogin ? 'Welcome back' : 'Join the community'}
           </h2>
           <p className="mt-2 text-stone-600">
-            {isLogin ? "Don't have an account? " : "Already have an account? "}
+            {isLogin ? "Don&apos;t have an account? " : "Already have an account? "}
             <button
               onClick={() => {
                 setIsLogin(!isLogin);
