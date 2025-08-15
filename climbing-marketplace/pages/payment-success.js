@@ -18,7 +18,7 @@ export default function PaymentSuccessPage() {
         
         <p className="text-gray-600 mb-8">
           Thank you for your purchase! Your climbing shoes will be shipped to you soon. 
-          You'll receive a confirmation email with tracking information.
+          You&apos;ll receive a confirmation email with tracking information.
         </p>
         
         <div className="space-y-4">
