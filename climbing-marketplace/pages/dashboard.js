@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import ImageUpload from '../components/ImageUpload';
+import ImageUpload from './components/ImageUpload';
 
 export default function Dashboard() {
   const router = useRouter();
