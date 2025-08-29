@@ -70,7 +70,7 @@ export default function AuthPage() {
         localStorage.setItem('user_data', JSON.stringify(data.user));
         
         // Redirect to homepage or dashboard
-        setTimeout(() => {
+         setTimeout(() => {
           router.push('/');
         }, 1500);
       } else {

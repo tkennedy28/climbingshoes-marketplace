@@ -1,330 +1,361 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import { useCart } from '../contexts/CartContext';
+import Head from 'next/head';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export default function Home() {
+export default function GearWallLanding() {
   const router = useRouter();
-  const [user, setUser] = useState(null);
-  const { getCartCount } = useCart();
+  const [email, setEmail] = useState('');
 
-  useEffect(() => {
-    // Check if user is logged in
-    const userData = localStorage.getItem('user_data');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-  }, []);
-
-  const handleBuyNow = (productId) => {
-    console.log('🔗 Navigating to checkout for:', productId);
-    router.push(`/checkout/${productId}`);
-  };
-
-  const handleSignIn = () => {
-    console.log('🔐 Sign in clicked');
-    router.push('/auth');
-  };
-
-  const handleCartClick = () => {
-    console.log('🛒 Cart clicked');
-    router.push('/cart');
-  };
-
-  const handleShopNowClick = () => {
-    console.log('🛍️ Shop now clicked');
-    document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    console.log('Newsletter signup:', email);
+    alert('Thanks for joining our community!');
+    setEmail('');
   };
 
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-stone-50`}>
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-stone-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-amber-800">Climbing Shoe Shop</h1>
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#products" className="text-stone-700 hover:text-amber-700 transition-colors">Shop</a>
-              <button 
-                onClick={() => router.push('/marketplace')}
-                className="text-stone-700 hover:text-amber-700 transition-colors"
-              >
-                Marketplace
-              </button>
-              <a href="#" className="text-stone-700 hover:text-amber-700 transition-colors">About</a>
-              <a href="#" className="text-stone-700 hover:text-amber-700 transition-colors">Contact</a>
-              <button 
-                onClick={() => router.push('/admin-auth')}
-                className="text-red-700 hover:text-red-800 text-sm transition-colors"
-              >
-                Admin
-              </button>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <button 
-                onClick={handleCartClick}
-                className="relative text-stone-700 hover:text-amber-700 transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
-                </svg>
-                {getCartCount() > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {getCartCount()}
-                  </span>
-                )}
-              </button>
-              {user ? (
+    <>
+      <Head>
+        <title>The Gear Wall - Specialized Outdoor Marketplaces</title>
+        <meta name="description" content="The Gear Wall connects outdoor enthusiasts through specialized marketplaces. Starting with The Climbing Shoe Shop and expanding to all outdoor gear." />
+        <meta name="keywords" content="outdoor gear marketplace, climbing shoes, ski swap, used outdoor equipment, buy sell gear" />
+      </Head>
+
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-stone-50 to-zinc-50">
+        {/* Header */}
+        <header className="bg-white shadow-sm border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center gap-3">
+                <div className="text-2xl font-black text-gray-900">THE GEAR WALL</div>
+              </div>
+              <nav className="flex items-center gap-6">
                 <button 
-                  onClick={() => router.push('/dashboard')}
-                  className="bg-amber-700 text-white px-4 py-2 rounded-md hover:bg-amber-800 transition-colors"
+                  onClick={() => router.push('/about')}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
                 >
-                  Dashboard
+                  About
                 </button>
-              ) : (
                 <button 
-                  onClick={handleSignIn}
-                  className="bg-amber-700 text-white px-4 py-2 rounded-md hover:bg-amber-800 transition-colors"
+                  onClick={() => router.push('/login')}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
                 >
                   Sign In
                 </button>
-              )}
+                <button 
+                  onClick={() => router.push('/signup')}
+                  className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                >
+                  Get Started
+                </button>
+              </nav>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-amber-100 via-orange-50 to-stone-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 text-stone-800">
-              The Ultimate<br />
-              <span className="text-amber-700">Climbing Shoe</span><br />
-              <span className="text-stone-700">Marketplace</span>
+        {/* Hero Section */}
+        <section className="pt-16 pb-8 px-4">
+          <div className="max-w-7xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Specialized Marketplaces for Outdoor Gear
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-stone-600">
-              Buy, sell, and discover the perfect climbing shoes for every route
+            <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+              The Gear Wall is building focused marketplaces for every outdoor community. 
+              Deep expertise, trusted transactions, better gear connections.
             </p>
-            <button 
-              onClick={handleShopNowClick}
-              className="bg-amber-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-amber-800 transition-colors shadow-lg"
-            >
-              Explore Collection
-            </button>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Marketplace Section */}
-      <section className="py-16 bg-stone-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-stone-800 mb-4">Community Marketplace</h2>
-            <p className="text-xl text-stone-600 mb-8">Buy and sell climbing shoes with fellow climbers worldwide</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🧗‍♀️</span>
+        {/* Marketplace Cards */}
+        <section className="pb-20 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+              
+              {/* The Climbing Shoe Shop - Active */}
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-1">
+                  <div className="bg-gradient-to-r from-amber-400 to-orange-500 p-1">
+                    <div className="bg-white p-8">
+                      <div className="flex items-center justify-between mb-6">
+                        <span className="bg-green-100 text-green-700 text-sm font-bold px-3 py-1 rounded-full">
+                          NOW LIVE
+                        </span>
+                        <span className="text-4xl">🧗</span>
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                        The Climbing Shoe Shop
+                      </h3>
+                      <p className="text-gray-600 mb-6 min-h-[48px]">
+                        The trusted marketplace for climbing shoes. Buy and sell from La Sportiva to Scarpa, 
+                        new to needs-resole.
+                      </p>
+                      
+                      <div className="space-y-4 mb-6">
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <span className="text-green-500">✓</span>
+                          <span>500+ active listings</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <span className="text-green-500">✓</span>
+                          <span>Detailed condition grading</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <span className="text-green-500">✓</span>
+                          <span>Size conversion charts</span>
+                        </div>
+                      </div>
+                      
+                      <button 
+                        onClick={() => router.push('/climbing-shoes')}
+                        className="w-full bg-gradient-to-r from-amber-400 to-orange-500 text-white font-bold py-3 px-6 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all"
+                      >
+                        Enter Marketplace →
+                      </button>
+                      
+                      <p className="text-xs text-green-600 mt-4 text-center font-medium">
+                        1% of sales donated to Access Fund
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-stone-800 mb-2">Trusted Community</h3>
-              <p className="text-stone-600">Buy from verified climbers with ratings and reviews</p>
+
+              {/* Ski Swap - Coming Soon */}
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-1">
+                  <div className="bg-gradient-to-r from-blue-400 to-cyan-500 p-1">
+                    <div className="bg-white p-8">
+                      <div className="flex items-center justify-between mb-6">
+                        <span className="bg-blue-100 text-blue-700 text-sm font-bold px-3 py-1 rounded-full">
+                          COMING FALL 2025
+                        </span>
+                        <span className="text-4xl">⛷️</span>
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                        Ski Swap Online
+                      </h3>
+                      <p className="text-gray-600 mb-6 min-h-[48px]">
+                        The year-round ski swap. Buy and sell skis, boots, and winter gear 
+                        without waiting for the annual event.
+                      </p>
+                      
+                      <div className="space-y-4 mb-6">
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="text-gray-400">○</span>
+                          <span>Ski & snowboard gear</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="text-gray-400">○</span>
+                          <span>Binding compatibility checker</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="text-gray-400">○</span>
+                          <span>Local pickup options</span>
+                        </div>
+                      </div>
+                      
+                      <button 
+                        onClick={() => setEmail('')}
+                        className="w-full bg-gray-100 text-gray-400 font-bold py-3 px-6 rounded-lg cursor-not-allowed"
+                        disabled
+                      >
+                        Get Notified →
+                      </button>
+                      
+                      <p className="text-xs text-gray-500 mt-4 text-center">
+                        Join 200+ waiting for launch
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Future Marketplaces */}
+            <div className="mt-12 text-center">
+              <h3 className="text-lg font-semibold text-gray-900 mb-6">More Specialized Marketplaces Coming Soon</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                <div className="bg-white/60 backdrop-blur rounded-lg p-4 border border-gray-200">
+                  <span className="text-2xl mb-2 block">🏔️</span>
+                  <p className="text-sm font-medium text-gray-700">Mountain Gear</p>
+                  <p className="text-xs text-gray-500">2025</p>
+                </div>
+                <div className="bg-white/60 backdrop-blur rounded-lg p-4 border border-gray-200">
+                  <span className="text-2xl mb-2 block">🚴</span>
+                  <p className="text-sm font-medium text-gray-700">Bike Exchange</p>
+                  <p className="text-xs text-gray-500">2025</p>
+                </div>
+                <div className="bg-white/60 backdrop-blur rounded-lg p-4 border border-gray-200">
+                  <span className="text-2xl mb-2 block">🏃</span>
+                  <p className="text-sm font-medium text-gray-700">Trail Running</p>
+                  <p className="text-xs text-gray-500">2026</p>
+                </div>
+                <div className="bg-white/60 backdrop-blur rounded-lg p-4 border border-gray-200">
+                  <span className="text-2xl mb-2 block">🛶</span>
+                  <p className="text-sm font-medium text-gray-700">Paddle Sports</p>
+                  <p className="text-xs text-gray-500">2026</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Specialized Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+              Why Specialized Marketplaces?
+            </h2>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+              Generic marketplaces treat climbing shoes like any other shoe. 
+              We build marketplaces that understand the gear, the community, and what matters.
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              <div>
+                <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-6">
+                  <h3 className="font-bold text-gray-900 mb-3">Deep Expertise</h3>
+                  <p className="text-gray-600 text-sm">
+                    Condition grading specific to each sport. Size charts for every brand. 
+                    Features that actually matter to the community.
+                  </p>
+                </div>
+              </div>
+              
+              <div>
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg p-6">
+                  <h3 className="font-bold text-gray-900 mb-3">Trusted Community</h3>
+                  <p className="text-gray-600 text-sm">
+                    Buyers and sellers who know the gear. Ratings from people who understand 
+                    what "needs resole" actually means.
+                  </p>
+                </div>
+              </div>
+              
+              <div>
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-6">
+                  <h3 className="font-bold text-gray-900 mb-3">Better Discovery</h3>
+                  <p className="text-gray-600 text-sm">
+                    Search and filters designed for each sport. Find exactly what you need 
+                    without wading through irrelevant listings.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-gray-900 mb-8">Growing the Outdoor Marketplace Ecosystem</h3>
+              <div className="grid md:grid-cols-4 gap-8">
+                <div>
+                  <p className="text-3xl font-bold text-gray-900 mb-2">2,000+</p>
+                  <p className="text-gray-600">Active Users</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-gray-900 mb-2">$75K+</p>
+                  <p className="text-gray-600">Gear Traded</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-gray-900 mb-2">1%</p>
+                  <p className="text-gray-600">To Environmental Causes</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-gray-900 mb-2">5</p>
+                  <p className="text-gray-600">Marketplaces by 2026</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Newsletter Section */}
+        <section className="py-16">
+          <div className="max-w-2xl mx-auto px-4 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Get Early Access to New Marketplaces
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Be first to know when we launch your sport's marketplace.
+            </p>
+            <form onSubmit={handleEmailSubmit} className="flex gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                required
+              />
+              <button
+                type="submit"
+                className="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="bg-gray-900 text-white py-12">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="grid md:grid-cols-4 gap-8">
+              <div>
+                <h4 className="font-bold mb-4">THE GEAR WALL</h4>
+                <p className="text-gray-400 text-sm">
+                  Building specialized marketplaces for outdoor communities.
+                </p>
+              </div>
+              
+              <div>
+                <h5 className="font-bold mb-4">Active Marketplaces</h5>
+                <ul className="space-y-2 text-gray-400 text-sm">
+                  <li>
+                    <a href="/climbing-shoes" className="hover:text-white transition-colors">
+                      The Climbing Shoe Shop
+                    </a>
+                  </li>
+                  <li className="opacity-60">Ski Swap Online (Winter 2025)</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h5 className="font-bold mb-4">Company</h5>
+                <ul className="space-y-2 text-gray-400 text-sm">
+                  <li><a href="/about" className="hover:text-white transition-colors">About</a></li>
+                  <li><a href="/giving-back" className="hover:text-white transition-colors">Environmental Impact</a></li>
+                  <li><a href="/contact" className="hover:text-white transition-colors">Contact</a></li>
+                  <li><a href="/careers" className="hover:text-white transition-colors">Careers</a></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h5 className="font-bold mb-4">Resources</h5>
+                <ul className="space-y-2 text-gray-400 text-sm">
+                  <li><a href="/seller-guide" className="hover:text-white transition-colors">Seller Guide</a></li>
+                  <li><a href="/safety" className="hover:text-white transition-colors">Trust & Safety</a></li>
+                  <li><a href="/terms" className="hover:text-white transition-colors">Terms</a></li>
+                  <li><a href="/privacy" className="hover:text-white transition-colors">Privacy</a></li>
+                </ul>
+              </div>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🏔️</span>
-              </div>
-              <h3 className="text-xl font-semibold text-stone-800 mb-2">Great Deals</h3>
-              <p className="text-stone-600">Find quality used shoes at unbeatable prices</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🌱</span>
-              </div>
-              <h3 className="text-xl font-semibold text-stone-800 mb-2">Sustainable</h3>
-              <p className="text-stone-600">Give shoes a second life and reduce waste</p>
+            <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+              <p>© 2025 The Gear Wall, LLC. All rights reserved.</p>
+              <p className="mt-2">Each marketplace operates independently with specialized features for its community.</p>
             </div>
           </div>
-          
-          <div className="text-center">
-            <button 
-              onClick={() => router.push('/marketplace')}
-              className="bg-stone-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-stone-800 transition-colors mr-4 shadow-md"
-            >
-              Browse Marketplace
-            </button>
-            {user ? (
-              <button 
-                onClick={() => router.push('/dashboard')}
-                className="bg-emerald-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-800 transition-colors shadow-md"
-              >
-                Sell Your Shoes
-              </button>
-            ) : (
-              <button 
-                onClick={() => router.push('/auth')}
-                className="bg-emerald-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-800 transition-colors shadow-md"
-              >
-                Start Selling
-              </button>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section id="products" className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12 text-stone-800">Featured Climbing Shoes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Product Card 1 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow border border-stone-200">
-              <button 
-                onClick={() => router.push('/product/solution')}
-                className="w-full text-left"
-              >
-                <div className="h-64 bg-stone-100 flex items-center justify-center">
-                  <span className="text-stone-500">Product Image</span>
-                </div>
-              </button>
-              <div className="p-6">
-                <button 
-                  onClick={() => router.push('/product/solution')}
-                  className="w-full text-left"
-                >
-                  <h3 className="text-xl font-semibold mb-2 hover:text-amber-700 transition-colors text-stone-800">La Sportiva Solution</h3>
-                </button>
-                <p className="text-stone-600 mb-4">Aggressive downturned shoe for overhangs</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-amber-700">$199</span>
-                  <button 
-                    onClick={() => handleBuyNow('solution')}
-                    className="bg-amber-700 text-white px-4 py-2 rounded hover:bg-amber-800 transition-colors shadow-md"
-                  >
-                    Buy Now
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Product Card 2 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow border border-stone-200">
-              <button 
-                onClick={() => router.push('/product/instinct')}
-                className="w-full text-left"
-              >
-                <div className="h-64 bg-stone-100 flex items-center justify-center">
-                  <span className="text-stone-500">Product Image</span>
-                </div>
-              </button>
-              <div className="p-6">
-                <button 
-                  onClick={() => router.push('/product/instinct')}
-                  className="w-full text-left"
-                >
-                  <h3 className="text-xl font-semibold mb-2 hover:text-amber-700 transition-colors text-stone-800">Scarpa Instinct</h3>
-                </button>
-                <p className="text-stone-600 mb-4">Versatile shoe for all climbing styles</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-amber-700">$179</span>
-                  <button 
-                    onClick={() => handleBuyNow('instinct')}
-                    className="bg-amber-700 text-white px-4 py-2 rounded hover:bg-amber-800 transition-colors shadow-md"
-                  >
-                    Buy Now
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Product Card 3 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow border border-stone-200">
-              <button 
-                onClick={() => router.push('/product/momentum')}
-                className="w-full text-left"
-              >
-                <div className="h-64 bg-stone-100 flex items-center justify-center">
-                  <span className="text-stone-500">Product Image</span>
-                </div>
-              </button>
-              <div className="p-6">
-                <button 
-                  onClick={() => router.push('/product/momentum')}
-                  className="w-full text-left"
-                >
-                  <h3 className="text-xl font-semibold mb-2 hover:text-amber-700 transition-colors text-stone-800">Black Diamond Momentum</h3>
-                </button>
-                <p className="text-stone-600 mb-4">Comfortable beginner-friendly shoe</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-amber-700">$99</span>
-                  <button 
-                    onClick={() => handleBuyNow('momentum')}
-                    className="bg-amber-700 text-white px-4 py-2 rounded hover:bg-amber-800 transition-colors shadow-md"
-                  >
-                    Buy Now
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-stone-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-amber-200">ClimbingShoes.com</h3>
-              <p className="text-stone-300">The world&apos;s largest marketplace for climbing shoes.</p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4 text-amber-200">Shop</h4>
-              <ul className="space-y-2 text-stone-300">
-                <li><a href="#" className="hover:text-amber-200 transition-colors">All Shoes</a></li>
-                <li><a href="#" className="hover:text-amber-200 transition-colors">Brands</a></li>
-                <li><a href="#" className="hover:text-amber-200 transition-colors">Sale</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4 text-amber-200">Support</h4>
-              <ul className="space-y-2 text-stone-300">
-                <li><a href="#" className="hover:text-amber-200 transition-colors">Size Guide</a></li>
-                <li><a href="#" className="hover:text-amber-200 transition-colors">Returns</a></li>
-                <li><a href="#" className="hover:text-amber-200 transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4 text-amber-200">Connect</h4>
-              <ul className="space-y-2 text-stone-300">
-                <li><a href="#" className="hover:text-amber-200 transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-amber-200 transition-colors">Facebook</a></li>
-                <li><a href="#" className="hover:text-amber-200 transition-colors">YouTube</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-stone-700 mt-8 pt-8 text-center text-stone-400">
-            <p>&copy; 2025 ClimbingShoes.com. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+        </footer>
+      </div>
+    </>
   );
 }

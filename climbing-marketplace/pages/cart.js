@@ -96,10 +96,10 @@ export default function CartPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <button
-              onClick={() => router.push('/')}
+              onClick={() => router.push('/climbing-shoes')}
               className="text-2xl font-bold text-amber-800 hover:text-amber-900 transition-colors"
             >
-              ClimbGear
+              The Climbing Shoe Shop
             </button>
             <div className="flex items-center space-x-4">
               <button 
