@@ -32,7 +32,7 @@ const corsOptions = {
       'http://localhost:3001',  // Alternative port
       'http://127.0.0.1:3000',
       // Add your production URL here when you deploy
-      // 'https://thegearwall.com'
+      // 'https://www.thegearwall.com'
     ];
     
     if (allowedOrigins.indexOf(origin) !== -1) {
