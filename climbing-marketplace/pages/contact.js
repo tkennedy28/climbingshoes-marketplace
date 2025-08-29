@@ -5,11 +5,11 @@ import Link from 'next/link';
 export default function ContactPage() {
   // EDITABLE CONTENT - Update these values as needed
   const contactInfo = {
-    email: 'support@climbingshoeshop.com',
+    email: 'Tom@TheGearWall.com',
     phone: '(330) 541-1028',
     phoneDisplay: '(330) 541-1028',
-    urgentEmail: 'urgent@climbingshoeshop.com',
-    safetyEmail: 'safety@climbingshoeshop.com',
+    urgentEmail: 'Tom@thegearwall.com Subject: URGENT',
+    safetyEmail: 'Tom@thegearwall.com',
     // Social media links - update with your actual URLs
     social: {
       facebook: 'https://facebook.com/climbingshoeshop',
